@@ -1,4 +1,4 @@
-# Projet de Démonstration Rubber Ducky : Installation d'un Keylogger
+# Projet de Démonstration Rubber Ducky : Récupération de Mots de Passe Wi-Fi et Envoi par Email
 
 ## 🚨 Avertissement
 
@@ -6,35 +6,27 @@ Ce projet est destiné **uniquement à des fins éducatives et de sensibilisatio
 
 ## 📖 Description
 
-Ce repository offre une démonstration pratique pour illustrer les risques associés aux attaques par dispositifs USB malveillants, en particulier via un dispositif "Rubber Ducky". Il montre comment un tel dispositif peut être utilisé pour installer un keylogger sur un PC, capturant ainsi les frappes de l'utilisateur sans son consentement.
+Ce projet démontre comment un dispositif Rubber Ducky peut être utilisé pour récupérer les mots de passe des réseaux Wi-Fi d'un PC et les envoyer par email. Le script exécute des commandes pour collecter ces informations de manière discrète.
 
 ### Composants du Projet
 
-- **Script Python du Keylogger** : Capture les frappes du clavier et les envoie à un serveur d'écoute.
-- **Script d'Écoute Côté Attaquant** : Réceptionne les données envoyées par le keylogger et les enregistre dans un fichier.
-- **Code Rubber Ducky** : Script Ducky Script pour exécuter le keylogger sur le PC cible.
+- **Ducky Script** : Code utilisé pour récupérer les mots de passe Wi-Fi et les envoyer par email.
 
 ## 🛠 Installation & Configuration
 
 ### Prérequis
 
-- Un dispositif Rubber Ducky programmé avec le Ducky Script fourni.
-- Python 3.x installé sur le serveur d'écoute.
+- Un dispositif Rubber Ducky.
+- Accès à un serveur SMTP pour l'envoi des emails.
 - Consentement du propriétaire de l'appareil cible pour la démonstration.
 
 ### Étapes
 
-1. **Serveur d'Écoute** :
-   - Exécutez le script d'écoute côté attaquant sur un serveur ou un PC avec Python installé.
-   - Assurez-vous que le port spécifié (par défaut 4444) est ouvert et accessible.
+1. **Préparation du Rubber Ducky** :
+   - Programmez votre Rubber Ducky avec le Ducky Script fourni ci-dessous.
 
-2. **Préparation du Rubber Ducky** :
-   - Programmez votre Rubber Ducky avec le script Ducky Script fourni.
-   - Le script télécharge et exécute le keylogger, qui se connectera au serveur d'écoute.
-
-3. **Lancement de la Démonstration** :
-   - Désactivez temporairement la protection en temps réel de l'antivirus sur le PC cible pour la démonstration.
-   - Branchez la Rubber Ducky sur le PC cible. Le script télécharge et exécute le keylogger.
+2. **Lancement de la Démonstration** :
+   - Branchez la Rubber Ducky sur le PC cible. Le script récupérera les mots de passe Wi-Fi et les enverra à l'adresse email spécifiée.
 
 ## 🔒 Sécurité et Éthique
 
